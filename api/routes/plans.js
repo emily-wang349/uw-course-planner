@@ -5,23 +5,30 @@
 const express = require('express');
 const router = express.Router();
 const admin = require('firebase-admin');
+const Plan = require('./../models/Plan');
 
+/**
+ * Custom middleware to verify users
+ */ 
 router.use(function(req, res, next){
 	let cookie = req.cookies.session || ""
+
+	return next()
 	
 	admin.auth().verifySessionCookie(cookie, true).then(decodedClaims =>{
-		next()
+		next();
 	}).catch(err=>{
-		let error = new Error('Unauthorized')
+		let error = new Error('Unauthorized');
 		error.status = 401;
-		return next(error)
+		return next(error);
 	})
 })
+
 /** GET - /plans
  * This endpoint should list all the plans IDs associated with the current user
  */
 router.get('/', function(req, res, next) {
-  res.json('all the plans');
+  res.json(new Plan({'hello': 1}));
 });
 
 /** POST - /plans
