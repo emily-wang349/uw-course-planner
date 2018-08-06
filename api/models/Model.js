@@ -1,6 +1,6 @@
 class Model {
 	constructor(){
-		throw new Error("cannot instantiate generic class")
+		
 	}
 
 	static fromJson(json){
@@ -9,6 +9,7 @@ class Model {
 
 	toJson(){
 		//apparently we can support custom serialization
+		return 'moreData'
 	}
 }
 
