@@ -1,10 +1,14 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: 'app-cp',
+  template: `
+  <h1>{{pageTitle}}</h1>
+  <div>Testing</div>
+  <cp-dashboard></cp-dashboard>
+  `
 })
+
 export class AppComponent {
-  title = 'client';
+  pageTitle: string = "UW Course Planner"
 }
