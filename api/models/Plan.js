@@ -10,9 +10,9 @@ const Utils = require('./../utils')
 class Plan extends Model {
 	constructor(data){
 		super();
-		this.terms = data.terms || [];
+		this.id = data.id || Utils.random();
 		this.name = data.name || "";
-		this.id = data.id || utils.random();
+		this.terms = data.terms || [];
 		this._state = {
 			_currentTerm: 0
 		};
@@ -42,6 +42,14 @@ class Plan extends Model {
 	*nextTerm(){
 		if(this._state._currentTerm >= this.terms.length) return;
 		yield this.terms[this._state._currentTerm++]; 
+	}
+
+	toJson(){
+		return {
+			id: this.id,
+			name: this.name,
+			terms: this.terms
+		}
 	}
 }
 

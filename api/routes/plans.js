@@ -6,6 +6,7 @@ const express = require('express');
 const router = express.Router();
 const admin = require('firebase-admin');
 const Plan = require('./../models/Plan');
+const User = require('./../models/User');
 
 /**
  * Custom middleware to verify users
@@ -28,14 +29,23 @@ router.use(function(req, res, next){
  * This endpoint should list all the plans IDs associated with the current user
  */
 router.get('/', function(req, res, next) {
-  res.json(new Plan({'hello': 1}));
+	let userId = 'test';
+	let userRef = admin.firestore().collection('users').doc(userId);
+	userRef.get().then(ref=>{
+		res.json(ref.data())
+	})
 });
 
 /** POST - /plans
  * This endpoint will create a new plan and return it
  */
 router.post('/', function(req, res, next){
-	res.json('made a plan');
+	let userId =  'test';
+	let userRef = admin.firestore().collection('users').doc(userId);
+	userRef.get().then(ref=>{
+		let user = new User(ref.data());
+		res.json(user)
+	})
 })
 
 /** GET - /plans/:id
