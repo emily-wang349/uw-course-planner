@@ -5,6 +5,7 @@ import { Component } from '@angular/core';
   template: `
   <h1>{{pageTitle}}</h1>
   <div>Testing</div>
+  <cp-dashboard></cp-dashboard>
   `
 })
 
