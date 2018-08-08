@@ -8,10 +8,16 @@ const admin = require('firebase-admin');
 const Plan = require('./../models/Plan');
 const User = require('./../models/User');
 
+const firestore = admin.firestore()
+firestore.settings({
+	timestampsInSnapshots: true
+})
+
 /**
  * Custom middleware to verify users
  */ 
 router.use(function(req, res, next){
+	// todo: pass user id or something so firebase knows what user we're talking about
 	let cookie = req.cookies.session || ""
 
 	return next()
@@ -30,7 +36,7 @@ router.use(function(req, res, next){
  */
 router.get('/', function(req, res, next) {
 	let userId = 'test';
-	let userRef = admin.firestore().collection('users').doc(userId);
+	let userRef = firestore.collection('users').doc(userId);
 	userRef.get().then(ref=>{
 		res.json(ref.data())
 	})
@@ -40,10 +46,16 @@ router.get('/', function(req, res, next) {
  * This endpoint will create a new plan and return it
  */
 router.post('/', function(req, res, next){
+	// todo: fix the user id
 	let userId =  'test';
-	let userRef = admin.firestore().collection('users').doc(userId);
+
+	let userRef = firestore.collection('users').doc(userId);
 	userRef.get().then(ref=>{
 		let user = new User(ref.data());
+		let plan = new Plan();
+		user.addPlan(plan);
+
+		// todo: save
 		res.json(user)
 	})
 })

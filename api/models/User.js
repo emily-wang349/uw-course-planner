@@ -9,10 +9,16 @@ const Utils = require('./../utils')
  */
 class User extends Model {
 	constructor(data){
+		data = data || {};
+
 		super();
 		this.id = data.id || Utils.random();
 		this.username = data.username || "";
 		this.plans = data.plans || [];
+
+		for(let i = 0; i < this.plans.length; i++){
+			this.plans[i] = new Plan(this.plans[i]);
+		}
 	}
 
 	static fromJson(json){
@@ -22,9 +28,9 @@ class User extends Model {
 	addPlan(plan, index){
 		if(!(plan instanceof Plan)) throw new TypeError("Expected instance of Plan, got " + typeof plan);
 		if(index){
-			this.data.plans.splice(index, 0, plan);
+			this.plans.splice(index, 0, plan);
 		} else {
-			this.data.plans.push(plan);
+			this.plans.push(plan);
 		}
 	}
 

@@ -10,12 +10,18 @@ const Utils = require('./../utils')
 class Plan extends Model {
 	constructor(data){
 		super();
+		data = data || {};
+		
 		this.id = data.id || Utils.random();
 		this.name = data.name || "";
 		this.terms = data.terms || [];
 		this._state = {
 			_currentTerm: 0
 		};
+
+		for(let i = 0; i < this.terms.length; i++){
+			this.terms[i] = new Term(this.terms[i]);
+		}
 	}
 
 	static fromJson(json){
