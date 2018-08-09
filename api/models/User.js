@@ -54,6 +54,17 @@ class User extends Model {
 		throw new TypeError("Expected String, Number, or Plan, got " + typeof plan);
 	}
 
+	getPlanById(id){
+		if(!(typeof id === "string")) throw new TypeError("Expected String, got " + typeof id);
+
+		for(let i = 0; i < this.plans.length; i++){
+			if(this.plans[i].id === id){
+				return this.plans[i];
+			}
+		}
+		return null;
+	}
+
 	toPlainObject(){
 		// let plainPlans = Object.assign
 		let plainObj = Object.assign({}, this);

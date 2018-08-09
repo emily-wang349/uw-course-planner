@@ -39,12 +39,12 @@ router.get('/', function(req, res, next) {
 	let userId = 'test';
 	let userRef = firestore.collection('users').doc(userId);
 	userRef.get().then(ref=>{
-		(new ResponseWrapper(res, ref.data(), 'Retrieved plans successfully')).send();
+		return (new ResponseWrapper(res, ref.data(), 'Retrieved plans successfully')).send();
 	})
 });
 
 /** POST - /plans
- * This endpoint will create a new plan and return it
+ * This endpoint will create a new plan and return the entire User object
  */
 router.post('/', function(req, res, next){
 	// todo: fix the user id
@@ -57,7 +57,7 @@ router.post('/', function(req, res, next){
 		user.addPlan(plan);
 		
 		userRef.set(user.toPlainObject(), { merge: true }).then(()=>{
-			(new ResponseWrapper(res, user, 'Added new plan', ResponseWrapper.STATUS.CREATED)).send();
+			return (new ResponseWrapper(res, user, 'Added plan successfully', ResponseWrapper.STATUS.CREATED)).send();
 		});
 	})
 })
@@ -71,10 +71,10 @@ router.delete('/:id', function(req, res, next){
 		let user = new User(ref.data());
 		if(user.removePlan(planId)){
 			userRef.set(user.toPlainObject(), { merge: true }).then(()=>{
-				(new ResponseWrapper(res, user, 'Plan successfully removed')).send();
+				return (new ResponseWrapper(res, user, 'Removed plan successfully')).send();
 			})
 		} else {
-			(new ResponseWrapper(res, user, 'Plan not found', ResponseWrapper.STATUS.NOT_FOUND)).send();
+			return (new ResponseWrapper(res, user, 'Plan not found', ResponseWrapper.STATUS.NOT_FOUND)).send();
 		}
 	})
 })
@@ -83,7 +83,18 @@ router.delete('/:id', function(req, res, next){
  * Get the details of a plan
  */
 router.get('/:id', function(req, res, next){
-	res.json('haha help me');
+	let userId = 'test';
+	let planId = req.params.id;
+
+	let userRef = firestore.collection('users').doc(userId);
+	userRef.get().then(ref=>{
+		let user = new User(ref.data());
+		let plan = user.getPlanById(planId);
+		if(plan){
+			return (new ResponseWrapper(res, plan, 'Plan retrieved successfully')).send();
+		}
+		return (new ResponseWrapper(res, {}, 'Plan not found', ResponseWrapper.STATUS.NOT_FOUND)).send();
+	})
 })
 
 /** PUT - /plans/:id

@@ -40,6 +40,7 @@ class Plan extends Model {
 	}
 
 	removeTerm(term){
+		console.warn("Users should not be allowed to remove a term, only clear one")
 		if(typeof term === "string"){
 
 		} else if (term instanceof Term){
