@@ -7,10 +7,10 @@ class Model {
 		throw new Error("static method not overridden")
 	}
 
-	toJson(){
-		//apparently we can support custom serialization
-		return 'moreData'
+	toPlainObject(){
+		
 	}
+
 }
 
 module.exports = Model;

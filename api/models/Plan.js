@@ -50,12 +50,13 @@ class Plan extends Model {
 		yield this.terms[this._state._currentTerm++]; 
 	}
 
-	toJson(){
-		return {
-			id: this.id,
-			name: this.name,
-			terms: this.terms
-		}
+	toPlainObject(){
+		let plainObj = Object.assign({}, this);
+		delete plainObj._state;
+		plainObj.terms = this.terms.map(term=>{
+			return term.toPlainObject();
+		});
+		return plainObj;
 	}
 }
 

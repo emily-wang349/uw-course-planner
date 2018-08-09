@@ -54,9 +54,27 @@ router.post('/', function(req, res, next){
 		let user = new User(ref.data());
 		let plan = new Plan();
 		user.addPlan(plan);
+		
+		userRef.set(user.toPlainObject(), { merge: true }).then(()=>{
+			res.json(user)
+		});
+	})
+})
 
-		// todo: save
-		res.json(user)
+router.delete('/:id', function(req, res, next){
+	let userId = 'test';
+	let planId = req.params.id;
+
+	let userRef = firestore.collection('users').doc(userId);
+	userRef.get().then(ref=>{
+		let user = new User(ref.data());
+		if(user.removePlan(planId)){
+			userRef.set(user.toPlainObject(), { merge: true }).then(()=>{
+				res.json(user);	
+			})
+		} else {
+			res.json(user);
+		}
 	})
 })
 

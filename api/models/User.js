@@ -34,12 +34,33 @@ class User extends Model {
 		}
 	}
 
-	removePlan(plan){
-		if(typeof plan === "string"){
-
-		} else if (plan instanceof Plan){
-
+	_removePlanById(strId){
+		for(let i = 0; i < this.plans.length; i++){
+			if(this.plans[i].id === strId){
+				this.plans.splice(i, 1);
+				return true;
+			}
 		}
+		return false;
+	}
+
+	removePlan(plan){
+		if(typeof plan === "string" || typeof plan === "number"){
+			let planId = "" + plan;
+			return this._removePlanById(planId);
+		} else if (plan instanceof Plan){
+			return this._removePlanById(plan.id);
+		}
+		throw new TypeError("Expected String, Number, or Plan, got " + typeof plan);
+	}
+
+	toPlainObject(){
+		// let plainPlans = Object.assign
+		let plainObj = Object.assign({}, this);
+		plainObj.plans = this.plans.map(plan=>{
+			return plan.toPlainObject();
+		});
+		return plainObj;
 	}
 }
 
