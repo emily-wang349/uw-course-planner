@@ -7,6 +7,7 @@ const router = express.Router();
 const admin = require('firebase-admin');
 const Plan = require('./../models/Plan');
 const User = require('./../models/User');
+const ResponseWrapper = require('./ResponseWrapper');
 
 const firestore = admin.firestore()
 firestore.settings({
@@ -38,7 +39,7 @@ router.get('/', function(req, res, next) {
 	let userId = 'test';
 	let userRef = firestore.collection('users').doc(userId);
 	userRef.get().then(ref=>{
-		res.json(ref.data())
+		(new ResponseWrapper(res, ref.data(), 'Retrieved plans successfully')).send();
 	})
 });
 
@@ -56,7 +57,7 @@ router.post('/', function(req, res, next){
 		user.addPlan(plan);
 		
 		userRef.set(user.toPlainObject(), { merge: true }).then(()=>{
-			res.json(user)
+			(new ResponseWrapper(res, user, 'Added new plan', ResponseWrapper.STATUS.CREATED)).send();
 		});
 	})
 })
@@ -70,10 +71,10 @@ router.delete('/:id', function(req, res, next){
 		let user = new User(ref.data());
 		if(user.removePlan(planId)){
 			userRef.set(user.toPlainObject(), { merge: true }).then(()=>{
-				res.json(user);	
+				(new ResponseWrapper(res, user, 'Plan successfully removed')).send();
 			})
 		} else {
-			res.json(user);
+			(new ResponseWrapper(res, user, 'Plan not found', ResponseWrapper.STATUS.NOT_FOUND)).send();
 		}
 	})
 })

@@ -1,6 +1,9 @@
-class Term {
-	constructor(id){
+const Utils = require('./../utils')
 
+class Term {
+	constructor(data){
+		this.courses = data.courses || [];
+		this.id = data.id || Utils.random('term-');
 	}
 
 	equals(term){

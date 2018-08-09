@@ -12,7 +12,7 @@ class User extends Model {
 		data = data || {};
 
 		super();
-		this.id = data.id || Utils.random();
+		this.id = data.id || Utils.random('user-');
 		this.username = data.username || "";
 		this.plans = data.plans || [];
 

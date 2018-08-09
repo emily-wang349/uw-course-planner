@@ -1,16 +1,9 @@
 class Model {
-	constructor(){
-		
-	}
+	constructor(){ }
 
-	static fromJson(json){
-		throw new Error("static method not overridden")
-	}
+	static fromJson(json){ }
 
-	toPlainObject(){
-		
-	}
-
+	toPlainObject(){ }
 }
 
 module.exports = Model;

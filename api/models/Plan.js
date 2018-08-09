@@ -12,7 +12,7 @@ class Plan extends Model {
 		super();
 		data = data || {};
 		
-		this.id = data.id || Utils.random();
+		this.id = data.id || Utils.random('plan-');
 		this.name = data.name || "";
 		this.terms = data.terms || [];
 		this._state = {
@@ -30,6 +30,8 @@ class Plan extends Model {
 
 	addTerm(term, index){
 		if(!(term instanceof Term)) throw new TypeError("Expected instance of Term, got " + typeof term);
+		if(index && Number.isInteger(parseInt(index))) throw new TypeError("Index must be integer-parseable, got " + typeof index);
+
 		if(index){
 			this.data.terms.splice(index, 0, term);
 		} else {
