@@ -69,10 +69,8 @@ router.get('/:planId/:termId', function(req, res, next){
 	let userRef = firestore.collection('users').doc(userId);
 	userRef.get().then(ref=>{
 		let user = new User(ref.data());
-		let plan = user.getPlanById(planId);
-		if(plan){
-			let term = plan.getTermById(termId);
-		}
+		let plan = user.getPlanBd(planId);
+		console.log(plan)
 	})
 })
 
