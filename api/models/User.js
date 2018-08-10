@@ -2,6 +2,18 @@ const Model = require('./Model');
 const Plan = require('./Plan');
 const Utils = require('./../utils')
 
+let handler = {
+	get(target, prop, receiver){
+		if(target[prop] && typeof target[prop] === 'function'){
+			let fn = target[prop];
+			return function(...args){
+				return fn.apply(target, args);
+			}
+		} else {
+			return target[prop];
+		}
+	}
+}
 /** User model 
  * id
  * username
@@ -19,6 +31,8 @@ class User extends Model {
 		for(let i = 0; i < this.plans.length; i++){
 			this.plans[i] = new Plan(this.plans[i]);
 		}
+
+		return new Proxy(this, )
 	}
 
 	static fromJson(json){

@@ -43,6 +43,39 @@ router.get('/', function(req, res, next) {
 	})
 });
 
+/** GET - /plans/:id
+ * Get the details of a plan
+ */
+router.get('/:id', function(req, res, next){
+	let userId = 'test';
+	let planId = req.params.id;
+
+	let userRef = firestore.collection('users').doc(userId);
+	userRef.get().then(ref=>{
+		let user = new User(ref.data());
+		let plan = user.getPlanById(planId);
+		if(plan){
+			return (new ResponseWrapper(res, plan, 'Plan retrieved successfully')).send();
+		}
+		return (new ResponseWrapper(res, {}, 'Plan not found', ResponseWrapper.STATUS.NOT_FOUND)).send();
+	})
+})
+
+router.get('/:planId/:termId', function(req, res, next){
+	let userId = 'test';
+	let planId = req.params.planId;
+	let termId = req.params.termId;
+
+	let userRef = firestore.collection('users').doc(userId);
+	userRef.get().then(ref=>{
+		let user = new User(ref.data());
+		let plan = user.getPlanById(planId);
+		if(plan){
+			let term = plan.getTermById(termId);
+		}
+	})
+})
+
 /** POST - /plans
  * This endpoint will create a new plan and return the entire User object
  */
@@ -79,23 +112,6 @@ router.delete('/:id', function(req, res, next){
 	})
 })
 
-/** GET - /plans/:id
- * Get the details of a plan
- */
-router.get('/:id', function(req, res, next){
-	let userId = 'test';
-	let planId = req.params.id;
-
-	let userRef = firestore.collection('users').doc(userId);
-	userRef.get().then(ref=>{
-		let user = new User(ref.data());
-		let plan = user.getPlanById(planId);
-		if(plan){
-			return (new ResponseWrapper(res, plan, 'Plan retrieved successfully')).send();
-		}
-		return (new ResponseWrapper(res, {}, 'Plan not found', ResponseWrapper.STATUS.NOT_FOUND)).send();
-	})
-})
 
 /** PUT - /plans/:id
  * Update a plan
