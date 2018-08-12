@@ -6,6 +6,11 @@ admin.initializeApp({
   databaseURL: 'https://uw-course-planner.firebaseio.com'
 });
 
+admin.firestore().settings({
+	timestampsInSnapshots: true
+})
+
+
 var express = require('express');
 var path = require('path');
 var logger = require('morgan');

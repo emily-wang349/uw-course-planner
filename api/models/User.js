@@ -11,8 +11,7 @@ class User extends Model {
 	constructor(data){
 		data = data || {};
 
-		super();
-		this.id = data.id || Utils.random('user-');
+		super(data.id || Utils.random('user-'));
 		this.username = data.username || "";
 		this.plans = data.plans || [];
 
@@ -34,35 +33,12 @@ class User extends Model {
 		}
 	}
 
-	_removePlanById(strId){
-		for(let i = 0; i < this.plans.length; i++){
-			if(this.plans[i].id === strId){
-				this.plans.splice(i, 1);
-				return true;
-			}
-		}
-		return false;
-	}
-
 	removePlan(plan){
-		if(typeof plan === "string" || typeof plan === "number"){
-			let planId = "" + plan;
-			return this._removePlanById(planId);
-		} else if (plan instanceof Plan){
-			return this._removePlanById(plan.id);
-		}
-		throw new TypeError("Expected String, Number, or Plan, got " + typeof plan);
+		return this.removeIterableProp(this.plans, plan);
 	}
 
 	getPlanById(id){
-		if(!(typeof id === "string")) throw new TypeError("Expected String, got " + typeof id);
-
-		for(let i = 0; i < this.plans.length; i++){
-			if(this.plans[i].id === id){
-				return this.plans[i];
-			}
-		}
-		return null;
+		return this.getIterablePropById(this.plans, id);
 	}
 
 	toPlainObject(){
