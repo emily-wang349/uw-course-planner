@@ -37,7 +37,6 @@ router.use(function(req, res, next){
  * =========================
  */
 
-
 /** GET - /plans
  * This endpoint should list all the plans IDs associated with the current user
  */
@@ -179,13 +178,13 @@ router.delete('/:id', function(req, res, next){
 		if(user.removePlan(planId)){
 			return userDoc.withRes(new ResponseWrapper(
 				res, 
-				user, 
+				{}, 
 				'Removed plan successfully')
 			).save();
 		} else {
 			return (new ResponseWrapper(
 				res, 
-				user, 
+				{}, 
 				'Plan not found',
 				ResponseWrapper.STATUS.NOT_FOUND)
 			).send();
@@ -207,20 +206,33 @@ router.delete('/:planId/:termId', function(req, res, next){
 			if(user.getPlanById(planId).removeTerm(termId)){
 				return userDoc.withRes(new ResponseWrapper(
 					res, 
-					user,
+					{},
 					'Term deleted successfully')
+				).save();
+			} else {
+				return (new ResponseWrapper(
+					res, 
+					{}, 
+					'Term not found',
+					ResponseWrapper.STATUS.NOT_FOUND)
 				).send();
 			}
 		} catch(e) {
 			return (new ResponseWrapper(
 				res,
-				{},
-				'Term not found'.
+				e.toString(),
+				'Term not found',
 				ResponseWrapper.STATUS.NOT_FOUND)
 			).send();
 		}
 	})
 })
+
+/** 
+ * =========================
+ * ---------- PUT ----------
+ * =========================
+ */
 
 /** PUT - /plans/:id
  * Update a plan

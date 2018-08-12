@@ -11,7 +11,7 @@ class Model {
 		if(Array.isArray(prop)){
 			for(let i = 0; i < prop.length; i++){
 				if(prop[i].id === id){
-					prop[i].splice(i, 1);
+					prop.splice(i, 1);
 					return true;
 				}
 			}
@@ -21,9 +21,9 @@ class Model {
 
 	removeIterableProp(prop, item){
 		if(typeof item === 'number' || typeof item === 'string'){
-			return _removeIterablePropById(prop, ""+item);
+			return this._removeIterablePropById(prop, ""+item);
 		} else if(item instanceof Model){
-			return _removeIterablePropById(prop, item.id);
+			return this._removeIterablePropById(prop, item.id);
 		}
 		throw new TypeError("Expected String, Number, or Model, got " + typeof term);
 	}
