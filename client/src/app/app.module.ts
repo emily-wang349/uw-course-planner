@@ -4,11 +4,12 @@ import { AppComponent } from './app.component';
 import { DashboardComponent} from './Dashboard/dashboard.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { LoginComponent } from './login/login.component';
-import { NavbarComponent } from './navbar/navbar.component';
+import { TermComponent } from './term/term.component';
+import { PlanComponent } from './plan/plan.component';
 
 @NgModule({
   declarations: [
-    AppComponent, DashboardComponent, NavbarComponent
+    AppComponent, DashboardComponent, TermComponent, PlanComponent
   ],
   imports: [
     BrowserModule, NgbModule.forRoot()
