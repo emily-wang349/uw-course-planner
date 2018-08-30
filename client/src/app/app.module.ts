@@ -6,10 +6,11 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { LoginComponent } from './login/login.component';
 import { TermComponent } from './term/term.component';
 import { PlanComponent } from './plan/plan.component';
+import { UserInfoComponent } from './user-info/user-info.component';
 
 @NgModule({
   declarations: [
-    AppComponent, DashboardComponent, TermComponent, PlanComponent
+    AppComponent, DashboardComponent, TermComponent, PlanComponent, UserInfoComponent
   ],
   imports: [
     BrowserModule, NgbModule.forRoot()
