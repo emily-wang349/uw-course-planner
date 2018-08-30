@@ -9,10 +9,9 @@ const Utils = require('./../utils')
  */
 class Plan extends Model {
 	constructor(data){
-		super();
 		data = data || {};
 		
-		this.id = data.id || Utils.random('plan-');
+		super(data.id || Utils.random('plan-'));
 		this.name = data.name || "";
 		this.terms = data.terms || [];
 		this._state = {
@@ -33,19 +32,18 @@ class Plan extends Model {
 		if(index && Number.isInteger(parseInt(index))) throw new TypeError("Index must be integer-parseable, got " + typeof index);
 
 		if(index){
-			this.data.terms.splice(index, 0, term);
+			this.terms.splice(index, 0, term);
 		} else {
-			this.data.terms.push(term);
+			this.terms.push(term);
 		}
 	}
 
+	getTermById(id){
+		return this.getIterablePropById(this.terms, id);
+	}
+
 	removeTerm(term){
-		console.warn("Users should not be allowed to remove a term, only clear one")
-		if(typeof term === "string"){
-
-		} else if (term instanceof Term){
-
-		}
+		return this.removeIterableProp(this.terms, term);
 	}
 
 	*nextTerm(){

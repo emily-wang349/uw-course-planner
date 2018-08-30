@@ -2,6 +2,7 @@ const Utils = require('./../utils')
 
 class Term {
 	constructor(data){
+		data = data || {};
 		this.courses = data.courses || [];
 		this.id = data.id || Utils.random('term-');
 	}
