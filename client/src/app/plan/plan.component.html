@@ -3,6 +3,8 @@
     Plan
   </mat-card-title>
   <mat-card-content>
-    
+    content
+    <app-term *ngFor="let term of terms;" [term]="term">
+    </app-term>
   </mat-card-content>
 </mat-card>
