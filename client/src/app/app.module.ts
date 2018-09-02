@@ -10,6 +10,13 @@ import { UserInfoComponent } from './user-info/user-info.component';
 import { MaterialModule } from './material/material.module';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { environment } from '../environments/environment';
+import { RegisterComponent } from './register/register.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { AuthenticationService } from './_services/authentication.service';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 const appRoutes: Routes = [
   { path: '', component: DashboardComponent }
@@ -17,12 +24,12 @@ const appRoutes: Routes = [
 
 @NgModule({
   declarations: [
-    AppComponent, DashboardComponent, TermComponent, PlanComponent, UserInfoComponent
+    AppComponent, DashboardComponent, TermComponent, PlanComponent, UserInfoComponent, RegisterComponent
   ],
   imports: [
-    BrowserModule, MaterialModule, RouterModule.forRoot(appRoutes), HttpClientModule
+    BrowserModule, MaterialModule, RouterModule.forRoot(appRoutes), HttpClientModule, AngularFireModule.initializeApp(environment.firebase), ReactiveFormsModule
   ],
-  providers: [], 
+  providers: [AuthenticationService, AngularFireAuth], 
   bootstrap: [AppComponent]
 })
 
