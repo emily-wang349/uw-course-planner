@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
     moduleId: module.id,
@@ -6,12 +6,16 @@ import { Component } from '@angular/core';
     templateUrl: 'dashboard.component.html'
 })
 
-export class DashboardComponent {
+export class DashboardComponent implements OnInit{
     pageTitle: string = "Dashboard"
 
-    plans: Object[]
+    plans: Array<Object>
 
     constructor(){
     	this.plans = [{ name: 1 }, { name: 2 }, { name: 3 }]
+    }
+
+    ngOnInit(){
+
     }
 }
