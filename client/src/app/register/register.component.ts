@@ -28,4 +28,12 @@ export class RegisterComponent implements OnInit {
     await this.authService.login(data);
   }
 
+  async logout(){
+    await this.authService.logout();
+  }
+
+  async getCurrentUser(){
+    console.log(await this.authService.getCurrentUser());
+  }
+
 }

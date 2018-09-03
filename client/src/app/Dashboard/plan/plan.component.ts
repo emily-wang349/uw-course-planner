@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { Term } from './../term/term.interface';
+import { Plan } from './plan.interface';
 
 @Component({
   selector: 'app-plan',
@@ -11,8 +12,13 @@ import { Term } from './../term/term.interface';
 export class PlanComponent implements OnInit {
   terms: Term[];
 
+  @Input() set plan(plan : Plan){
+  	this.plan = plan;
+  	this.terms = plan.terms;
+  }
+
   constructor() {
-  	this.terms = [{ id: '1A', courses: [''] }, { id: '1B', courses: [''] }]
+  	// this.terms = [{ id: '1A', courses: [''] }, { id: '1B', courses: [''] }]
   }
 
   ngOnInit() {

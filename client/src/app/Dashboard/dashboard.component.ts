@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from './../_services/api/api.service';
 
 @Component({
     moduleId: module.id,
@@ -11,11 +12,17 @@ export class DashboardComponent implements OnInit{
 
     plans: Array<Object>
 
-    constructor(){
+    constructor(private api : ApiService){
     	this.plans = [{ name: 1 }, { name: 2 }, { name: 3 }]
     }
 
     ngOnInit(){
 
+    }
+
+    async testGet(){
+        (await this.api.get(ApiService.Endpoints.PLANS, [])).subscribe(data=>{
+            console.log(data)
+        })
     }
 }

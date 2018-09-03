@@ -13,9 +13,8 @@ export class AuthenticationService {
 	constructor(private afAuth : AngularFireAuth) { }
 
 	login(data : LoginFormData) {
-		return new Promise<any>((resolve, reject)=>{
-			this.afAuth.auth.signInWithEmailAndPassword(data.email, data.password).then((user : firebase.auth.UserCredential)=>{
-				console.log(user.user)
+		return new Promise<firebase.auth.UserCredential>((resolve, reject)=>{
+			this.afAuth.auth.signInWithEmailAndPassword(data.email, data.password).then(user=>{
 				resolve(user);
 			}).catch(e=>reject(e));
 		})
@@ -24,18 +23,27 @@ export class AuthenticationService {
 	logout() {
 		return new Promise<boolean>((resolve, reject)=>{
 			this.afAuth.auth.signOut().then(()=>{
+				console.log('logged out')
 				resolve(true);
 			}).catch(e=>{
-				resolve(false);
+				resolve(e);
 			})
 		})
+	}
+
+	getCurrentUser(){
+		return new Promise<any>((resolve, reject)=>{
+			this.afAuth.auth.currentUser.getIdToken().then(token=>{
+				resolve(token);
+			})
+		}); 
 	}
 
 	/** Registers a user by email/password
 	* @param data {Object} - an object containing an email and password property
 	*/
 	register(data : LoginFormData){
-		return new Promise<any>((resolve, reject) => {
+		return new Promise<firebase.auth.UserCredential>((resolve, reject) => {
 			this.afAuth.auth.createUserWithEmailAndPassword(data.email, data.password)
 			.then(res => resolve(res), err => reject(err))
 		})

@@ -9,6 +9,8 @@
      <label class="error">{{errorMessage}}</label>
      <label class="success">{{successMessage}}</label>
    </div>
-   <button type="submit" (click)="register(registerForm.value)" class="btn btn-default">Register</button>
-   <button type="submit" (click)="login(registerForm.value)" class="btn btn-default">Login</button>
+   <button (click)="register(registerForm.value)" class="btn btn-default">Register</button>
+   <button (click)="login(registerForm.value)" class="btn btn-default">Login</button>
+   <button (click)="logout()" class="btn btn-default">Logout</button>
+   <button (click)="getCurrentUser()" class="btn btn-default">Get Current User</button>
 </form>

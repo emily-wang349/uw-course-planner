@@ -16,6 +16,7 @@ import { environment } from '../environments/environment';
 import { RegisterComponent } from './register/register.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthenticationService } from './_services/authentication.service';
+import { ApiService } from './_services/api/api.service';
 import { AngularFireAuth } from 'angularfire2/auth';
 
 const appRoutes: Routes = [
@@ -29,7 +30,7 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule, MaterialModule, RouterModule.forRoot(appRoutes), HttpClientModule, AngularFireModule.initializeApp(environment.firebase), ReactiveFormsModule
   ],
-  providers: [AuthenticationService, AngularFireAuth], 
+  providers: [AuthenticationService, AngularFireAuth, ApiService], 
   bootstrap: [AppComponent]
 })
 
