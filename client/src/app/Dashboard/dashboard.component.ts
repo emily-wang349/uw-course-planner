@@ -14,9 +14,7 @@ export class DashboardComponent implements OnInit{
     plans: Array<Object>
 
     constructor(private api : ApiService){
-    	
     }
-
     async ngOnInit(){
         let observer = await this.api.get(ApiService.Endpoints.PLANS, []);
         observer.subscribe((response : ApiResponse)=>{
