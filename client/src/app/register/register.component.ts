@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from './../_services/authentication.service';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
+import { MaterialModule} from '../material/material.module'
 
 @Component({
   selector: 'app-register',

@@ -20,7 +20,9 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { HomepageComponent } from './homepage/homepage.component';
 
 const appRoutes: Routes = [
-  { path: '', component: RegisterComponent }
+  { path: '', component: HomepageComponent},
+  { path: 'login', component: RegisterComponent},
+  { path: 'dashboard', component: DashboardComponent}
 ];
 
 @NgModule({
