@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AuthenticationService } from './../authentication.service';
+import { ApiResponse } from './../apiResponse.interface';
 
 let Endpoints = {
 	PLANS: '/plans',
@@ -33,10 +34,12 @@ export class ApiService {
   	return Methods;
   }
 
-  async get(endpoint : string, params : Array<any>, method : Methods = Methods.GET){
-  	let url = this.baseUrl + ApiService.resolveEndpoint(endpoint, params);
+  async get(endpoint : string, params : Array<any>, method? : Methods) {
+  	let userToken = await this.authService.getCurrentUser();
+  	let url = this.baseUrl + ApiService.resolveEndpoint(endpoint, params) + '?user=' + userToken;
   	switch(method){
   		case Methods.POST:
+
   			break;
   		case Methods.PUT:
 
@@ -52,7 +55,7 @@ export class ApiService {
   private static resolveEndpoint(endpoint : string, params : Array<any>) : string{
   	let i = 1;
   	for(let param in params){
-  		endpoint = endpoint.replace("$"+i.toString(), param.toString());
+  		endpoint = endpoint.replace("$" + i.toString(), param.toString());
   		i++;
   	}
   	return endpoint;

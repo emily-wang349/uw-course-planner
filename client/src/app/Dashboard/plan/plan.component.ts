@@ -10,12 +10,7 @@ import { Plan } from './plan.interface';
 })
 
 export class PlanComponent implements OnInit {
-  terms: Term[];
-
-  @Input() set plan(plan : Plan){
-  	this.plan = plan;
-  	this.terms = plan.terms;
-  }
+  @Input() plan : Plan = { id: '', name: '', terms: [] };
 
   constructor() {
   	// this.terms = [{ id: '1A', courses: [''] }, { id: '1B', courses: [''] }]

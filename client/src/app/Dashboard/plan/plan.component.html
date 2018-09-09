@@ -1,10 +1,9 @@
-<mat-card>
+<mat-card *ngIf="plan.terms.length">
   <mat-card-title>
     Plan
   </mat-card-title>
   <mat-card-content>
-    content
-    <app-term *ngFor="let term of terms;" [term]="term">
+    <app-term *ngFor="let term of plan.terms;" [term]="term">
     </app-term>
   </mat-card-content>
 </mat-card>

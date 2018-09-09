@@ -1,7 +1,7 @@
 <div class="container">
     <h1>{{pageTitle}}</h1>
     <div style="display:flex">
-	    <app-plan *ngFor="let plan of plans" style="margin: 1rem">
+	    <app-plan *ngFor="let plan of plans" [plan]="plan">
 	    </app-plan>
 		</div>
 		<app-register></app-register>

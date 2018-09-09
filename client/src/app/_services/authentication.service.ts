@@ -15,6 +15,7 @@ export class AuthenticationService {
 	login(data : LoginFormData) {
 		return new Promise<firebase.auth.UserCredential>((resolve, reject)=>{
 			this.afAuth.auth.signInWithEmailAndPassword(data.email, data.password).then(user=>{
+				console.log('logged in')
 				resolve(user);
 			}).catch(e=>reject(e));
 		})
@@ -31,12 +32,11 @@ export class AuthenticationService {
 		})
 	}
 
-	getCurrentUser(){
-		return new Promise<any>((resolve, reject)=>{
-			this.afAuth.auth.currentUser.getIdToken().then(token=>{
-				resolve(token);
-			})
-		}); 
+	async getCurrentUser(){
+	 	if(!this.afAuth.auth.currentUser) {
+	 		throw new Error("User is not authenticated");
+	 	}
+		return await this.afAuth.auth.currentUser.getIdToken();
 	}
 
 	/** Registers a user by email/password

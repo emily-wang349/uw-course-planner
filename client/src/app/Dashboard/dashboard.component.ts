@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from './../_services/api/api.service';
+import { ApiResponse } from './../_services/apiResponse.interface';
 
 @Component({
     moduleId: module.id,
@@ -13,16 +14,21 @@ export class DashboardComponent implements OnInit{
     plans: Array<Object>
 
     constructor(private api : ApiService){
-    	this.plans = [{ name: 1 }, { name: 2 }, { name: 3 }]
+    	
     }
 
-    ngOnInit(){
-
+    async ngOnInit(){
+        let observer = await this.api.get(ApiService.Endpoints.PLANS, []);
+        observer.subscribe((response : ApiResponse)=>{
+            this.plans = response.data.plans;
+        })
     }
 
     async testGet(){
-        (await this.api.get(ApiService.Endpoints.PLANS, [])).subscribe(data=>{
-            console.log(data)
+        let observer = await this.api.get(ApiService.Endpoints.PLANS, []);
+        observer.subscribe((response : ApiResponse)=>{
+            this.plans = response.data.plans;
+            console.log(this.plans)
         })
     }
 }
