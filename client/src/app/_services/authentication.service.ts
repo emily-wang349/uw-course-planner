@@ -39,6 +39,7 @@ export class AuthenticationService {
 		}); 
 	}
 
+
 	/** Registers a user by email/password
 	* @param data {Object} - an object containing an email and password property
 	*/

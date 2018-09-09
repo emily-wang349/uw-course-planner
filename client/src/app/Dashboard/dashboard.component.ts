@@ -13,16 +13,16 @@ export class DashboardComponent implements OnInit{
     plans: Array<Object>
 
     constructor(private api : ApiService){
-    	this.plans = [{ name: 1 }, { name: 2 }, { name: 3 }]
     }
 
     ngOnInit(){
-
+        
     }
 
     async testGet(){
-        (await this.api.get(ApiService.Endpoints.PLANS, [])).subscribe(data=>{
-            console.log(data)
-        })
+        (await this.api.get(ApiService.Endpoints.PLANS, [])).subscribe((response:any)=>{
+            console.log(response);
+            this.plans = response.data.plans;
+        }) 
     }
 }

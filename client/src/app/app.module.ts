@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { DashboardComponent} from './Dashboard/dashboard.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { LoginComponent } from './login/login.component';
 import { TermComponent } from './Dashboard/term/term.component';
 import { PlanComponent } from './Dashboard/plan/plan.component';
 import { UserInfoComponent } from './user-info/user-info.component';
@@ -18,14 +17,15 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AuthenticationService } from './_services/authentication.service';
 import { ApiService } from './_services/api/api.service';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { HomepageComponent } from './homepage/homepage.component';
 
 const appRoutes: Routes = [
-  { path: '', component: DashboardComponent }
+  { path: '', component: RegisterComponent }
 ];
 
 @NgModule({
   declarations: [
-    AppComponent, DashboardComponent, TermComponent, PlanComponent, UserInfoComponent, RegisterComponent
+    AppComponent, DashboardComponent, TermComponent, PlanComponent, UserInfoComponent, RegisterComponent, HomepageComponent
   ],
   imports: [
     BrowserModule, MaterialModule, RouterModule.forRoot(appRoutes), HttpClientModule, AngularFireModule.initializeApp(environment.firebase), ReactiveFormsModule
