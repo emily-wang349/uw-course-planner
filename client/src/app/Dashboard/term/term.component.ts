@@ -15,6 +15,4 @@ export class TermComponent implements OnInit {
 
   ngOnInit() {
   }
-
-
 }

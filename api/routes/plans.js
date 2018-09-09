@@ -78,7 +78,7 @@ router.get('/:id', function(req, res, next){
 /** GET - /plans/:planId/:termId
  *	Retrieve the term details under the plan
  */
-router.get('/:planId/:termId', function(req, res, next){
+router.get('/:planId/terms/:termId', function(req, res, next){
 	let userId = 'test';
 	let planId = req.params.planId;
 	let termId = req.params.termId;
@@ -201,7 +201,7 @@ router.delete('/:id', function(req, res, next){
 /** DELETE - /plans/:planId/:termId
  * Deletes a term from the currently logged in user
  */
-router.delete('/:planId/:termId', function(req, res, next){
+router.delete('/:planId/terms/:termId', function(req, res, next){
 	let userId = 'test';
 	let planId = req.params.planId;
 	let termId = req.params.termId;
